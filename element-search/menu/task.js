@@ -17,10 +17,7 @@ menuLinks.forEach((menuLinkElem) => {
       } else {
         menuElem.classList.remove("menu_active");
       }
-
-      if (menuLinkElem.closest(".menu_main")) {
-        return false;
-      }
+      return false;
     }
   };
 });
