@@ -21,10 +21,3 @@ menuLinks.forEach((menuLinkElem) => {
     }
   };
 });
-
-let brokenLinks = document.querySelectorAll("ul.menu_sub > li");
-for (item of brokenLinks) {
-  item.onclick = () => {
-    return false;
-  };
-}

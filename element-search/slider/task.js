@@ -1,41 +1,54 @@
-const slider = document.querySelectorAll(".slider__item");
+const slider = [...document.querySelectorAll(".slider__item")];
 const arrowPrev = document.querySelector(".slider__arrow_prev");
 const arrowNext = document.querySelector(".slider__arrow_next");
-const dots = document.querySelectorAll(".slider__dot");
+const dots = [...document.querySelectorAll(".slider__dot")];
 
-let sliderActive = 0;
+function changeSlide(indexPicture) {
+  slider.forEach((itemSlider, index) => {
+    itemSlider.classList.remove("slider__item_active");
+    if (index === indexPicture) {
+      itemSlider.classList.add("slider__item_active");
+    }
+  });
+  dots.forEach((itemDot, index) => {
+    itemDot.classList.remove("slider__dot_active");
+    if (index === indexPicture) {
+      itemDot.classList.add("slider__dot_active");
+    }
+  });
+}
+
+function findActiveIndex() {
+  const searchIndex = slider.findIndex((sliderItem) => {
+    return sliderItem.classList.contains("slider__item_active");
+  });
+  return searchIndex;
+}
 
 arrowPrev.onclick = () => {
-  if (sliderActive - 1 < 0) {
+  let sliderActive = findActiveIndex();
+  if (sliderActive === 0) {
     sliderActive = slider.length - 1;
   } else {
-    sliderActive -= 1;
+    sliderActive = sliderActive - 1;
   }
   changeSlide(sliderActive);
 };
 
 arrowNext.onclick = () => {
-  if (sliderActive + 1 === slider.length) {
-    sliderActive = 0;
+  let sliderItem = findActiveIndex();
+  if (sliderItem === slider.length - 1) {
+    sliderItem = 0;
   } else {
-    sliderActive += 1;
+    sliderItem = sliderItem + 1;
   }
-  changeSlide(sliderActive);
+  changeSlide(sliderItem);
 };
 
-dots[sliderActive].classList.add("slider__dot_active");
-[...dots].forEach(
-  (item, i) =>
+dots[findActiveIndex()].classList.add("slider__dot_active");
+dots.forEach(
+  (item, indexPicture) =>
     (item.onclick = () => {
-      changeSlide(i);
+      changeSlide(indexPicture);
     })
 );
-
-function changeSlide(i) {
-  [...slider].forEach((element) =>
-    element.classList.remove("slider__item_active")
-  );
-  [...dots].forEach((item) => item.classList.remove("slider__dot_active"));
-  slider[i].classList.add("slider__item_active");
-  dots[i].classList.add("slider__dot_active");
-}
