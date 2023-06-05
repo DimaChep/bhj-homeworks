@@ -3,16 +3,16 @@ const arrowPrev = document.querySelector(".slider__arrow_prev");
 const arrowNext = document.querySelector(".slider__arrow_next");
 const dots = [...document.querySelectorAll(".slider__dot")];
 
-function changeSlide(indexPicture) {
+function changeSlide(activePicture) {
   slider.forEach((itemSlider, index) => {
     itemSlider.classList.remove("slider__item_active");
-    if (index === indexPicture) {
+    if (index === activePicture) {
       itemSlider.classList.add("slider__item_active");
     }
   });
   dots.forEach((itemDot, index) => {
     itemDot.classList.remove("slider__dot_active");
-    if (index === indexPicture) {
+    if (index === activePicture) {
       itemDot.classList.add("slider__dot_active");
     }
   });
@@ -47,8 +47,8 @@ arrowNext.onclick = () => {
 
 dots[findActiveIndex()].classList.add("slider__dot_active");
 dots.forEach(
-  (item, indexPicture) =>
+  (item, index) =>
     (item.onclick = () => {
-      changeSlide(indexPicture);
+      changeSlide(index);
     })
 );
