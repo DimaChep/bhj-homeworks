@@ -3,6 +3,7 @@ const tasksAdd = document.getElementById("tasks__add");
 const tasksList = document.getElementById("tasks__list");
 
 tasksAdd.addEventListener("click", (e) => {
+  e.preventDefault();
   if (!taskInput.value.trim()) {
     return;
   }
@@ -18,5 +19,4 @@ tasksAdd.addEventListener("click", (e) => {
   task.innerHTML = `<div class="task__title">${taskInput.value}</div><a href="#" class="task__remove">&times;</a>`;
   tasksList.appendChild(task);
   taskInput.value = "";
-  e.preventDefault();
 });
